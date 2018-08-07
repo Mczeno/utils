@@ -1,4 +1,4 @@
-package com.mczeno.util;
+package com.mczeno.utils;
 
 import java.io.OutputStream;
 import java.lang.reflect.Field;
@@ -31,7 +31,7 @@ public class ExcelUtil {
      * @param objects           需要到处的对象列表
      * @param outputStream      输出流
      * @throws Exception 异常
-     * @see 附web项目下载设置：{
+     * @about web project setting ：{
      *     HttpServletResponse.setContentType("application/vnd.ms-excel;charset=utf-8");
      *     HttpServletResponse.setHeader("Content-Disposition", "attachment;filename=" + Excel名 + ".xlsx");
      * }

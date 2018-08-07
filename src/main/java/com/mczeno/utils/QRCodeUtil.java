@@ -1,4 +1,4 @@
-package com.mczeno.util;
+package com.mczeno.utils;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;

@@ -1,7 +1,7 @@
 package com.mczeno;
 
 import com.google.zxing.WriterException;
-import com.mczeno.util.QRCodeUtil;
+import com.mczeno.utils.QRCodeUtil;
 
 import java.io.File;
 import java.io.IOException;
