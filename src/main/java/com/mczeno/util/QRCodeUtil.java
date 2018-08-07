@@ -16,6 +16,7 @@ import java.util.Hashtable;
 
 /**
  * 二维码生成工具-基于Google Zxing
+ *
  * @author Chongming Zhou
  * @date 2018-06-25
  */

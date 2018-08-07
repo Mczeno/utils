@@ -18,28 +18,31 @@ import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
 /**
  * Excel导出工具类-基于Apache poi-ooxml
+ *
  * @author Chongming Zhou
  * @date 2017-07-27
  */
 public class ExcelUtil {
-	
-	/**
-	 * 导出为 Excel
-	 * @param headerPropertyMap Excel 表格中的表头和对象属性的组合键值对（LinkedHashMap 保证存取顺序）
-	 * @param objects 需要到处的对象列表
-	 * @param outputStream 输出流
-	 * @throws Exception 异常
-	 * @see 附web项目下载设置：{
-	 * 	   HttpServletResponse.setContentType("application/vnd.ms-excel;charset=utf-8"); 
-	 * 	   HttpServletResponse.setHeader("Content-Disposition", "attachment;filename=" + Excel名 + ".xlsx");
-	 * }
-	 */
-    public static <T> void exportAsExcel(LinkedHashMap<String, String> headerPropertyMap, List<T> objects, OutputStream outputStream) throws Exception {
+
+    /**
+     * 导出为 Excel
+     *
+     * @param headerPropertyMap Excel 表格中的表头和对象属性的组合键值对（LinkedHashMap 保证存取顺序）
+     * @param objects           需要到处的对象列表
+     * @param outputStream      输出流
+     * @throws Exception 异常
+     * @see 附web项目下载设置：{
+     *     HttpServletResponse.setContentType("application/vnd.ms-excel;charset=utf-8");
+     *     HttpServletResponse.setHeader("Content-Disposition", "attachment;filename=" + Excel名 + ".xlsx");
+     * }
+     */
+    public static <T> void exportAsExcel(LinkedHashMap<String, String> headerPropertyMap, List<T> objects,
+                                         OutputStream outputStream) throws Exception {
         if (headerPropertyMap == null || headerPropertyMap.isEmpty()) {
-			throw new Exception("Empty map of header and property!");
-		}
-        
-    	// 第一步，创建一个webbook，对应一个Excel文件
+            throw new Exception("Empty map of header and property!");
+        }
+
+        // 第一步，创建一个webbook，对应一个Excel文件
         SXSSFWorkbook workbook = new SXSSFWorkbook();
 
         // 第二步，在webbook中添加一个sheet,对应Excel文件中的sheet
@@ -55,15 +58,15 @@ public class ExcelUtil {
 
         // 第四步，创建单元格
         Set<Entry<String, String>> entrySet = headerPropertyMap.entrySet();
-        
+
         // 设置表头
         List<String> propertyList = new ArrayList<>();
         int columnIndex = 0;
         for (Entry<String, String> entry : entrySet) {
-        	row.createCell(columnIndex++).setCellValue(entry.getKey());
-        	propertyList.add(entry.getValue());
+            row.createCell(columnIndex++).setCellValue(entry.getKey());
+            propertyList.add(entry.getValue());
         }
-        
+
         // 设置表内容
         for (int i = 0; i < objects.size(); i++) {
             row = sheet.createRow(i + 1);
@@ -75,7 +78,7 @@ public class ExcelUtil {
                 char[] charArray = field.getName().toCharArray();
                 charArray[0] -= 32;
                 Method method = clazz.getMethod("get" + String.valueOf(charArray), (Class<?>[]) null);
-                Object result =	method.invoke(t, (Object[]) null);
+                Object result = method.invoke(t, (Object[]) null);
                 row.createCell(j).setCellValue(result != null ? result.toString() : "");
             }
         }
